@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -47,12 +48,12 @@ public class EmailController {
 
 
     @GetMapping("/result")
-    public String showProgramPage(@RequestParam("code") String coDe, Model model) {
-
-        model.addAttribute("code", coDe);
-        // Üdvözlő oldal megjelenítése
-        return "resultPage";
+    public ModelAndView showProgramPage(@RequestParam("code") String coDe) {
+        ModelAndView modelAndView = new ModelAndView("resultPage");
+        modelAndView.addObject("code", coDe);
+        return modelAndView;
     }
+
     private String generateUniqueCode() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
